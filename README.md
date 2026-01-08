@@ -31,6 +31,7 @@
 - [Advanced Version](#-advanced-version)
 - [License](#-license)
 - [Acknowledgments](#-acknowledgments)
+- [Support](#-support)
 
 ---
 
