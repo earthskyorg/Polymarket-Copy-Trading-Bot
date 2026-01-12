@@ -308,23 +308,11 @@ An advanced version with **Real-Time Data Stream (RTDS)** monitoring is availabl
 - **Lower API Load**: More efficient data streaming architecture
 - **Superior Performance**: Enhanced copy trading (copytrading) capabilities
 
-<!-- <div align="center">
-
-<img width="680" height="313" alt="Version 2 RTDS Features" src="https://github.com/user-attachments/assets/d868f9f2-a1dd-4bfe-a76e-d8cbdfbd8497" />
-
-</div> -->
-
 ---
 
 ## 🛠️ High-Performance Rust Trading Bot
 
 A high-performance trading bot for Polymarket built with **Rust** is also available for advanced users seeking maximum performance.
-
-<div align="center">
-
-<img width="1917" height="942" alt="Rust Trading Bot for Polymarket - High Performance Automated Trading Interface" src="https://github.com/user-attachments/assets/08a5c962-7f8b-4097-98b6-7a457daa37c9" />
-
-[Watch Demo Video](https://www.youtube.com/watch?v=0uUI_ht_2eY)
 
 </div>
 
