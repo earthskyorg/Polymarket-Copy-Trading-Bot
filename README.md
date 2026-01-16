@@ -1,4 +1,4 @@
-# Polymarket Copy Trading Bot - Automated Trading Bot for Polymarket Prediction Markets
+# Polymarket Copy Trading Bot - Trading Bot for Polymarket Prediction Markets
 
 <!-- SEO Meta Description: Best Polymarket copy trading bot for automated trading. Mirror top traders on Polymarket with intelligent position sizing, real-time execution, and 24/7 monitoring. Free open-source TypeScript trading bot for Polygon blockchain. -->
 
