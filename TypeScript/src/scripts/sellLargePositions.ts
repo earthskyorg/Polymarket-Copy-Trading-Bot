@@ -118,7 +118,7 @@ const sellPosition = async (clobClient: ClobClient, position: Position, sellSize
 
     while (remaining > 0 && retry < RETRY_LIMIT) {
         try {
-            // Получаем текущую книгу заказов
+            // Get current order book
             const orderBook = await clobClient.getOrderBook(position.asset);
 
             if (!orderBook.bids || orderBook.bids.length === 0) {
@@ -126,14 +126,14 @@ const sellPosition = async (clobClient: ClobClient, position: Position, sellSize
                 break;
             }
 
-            // Находим лучший бид
+            // Find best bid
             const maxPriceBid = orderBook.bids.reduce((max, bid) => {
                 return parseFloat(bid.price) > parseFloat(max.price) ? bid : max;
             }, orderBook.bids[0]);
 
             console.log(`📊 Best bid: ${maxPriceBid.size} tokens @ $${maxPriceBid.price}`);
 
-            // Определяем размер ордера
+            // Determine order size
             let orderAmount: number;
             if (remaining <= parseFloat(maxPriceBid.size)) {
                 orderAmount = remaining;
@@ -141,7 +141,7 @@ const sellPosition = async (clobClient: ClobClient, position: Position, sellSize
                 orderAmount = parseFloat(maxPriceBid.size);
             }
 
-            // Создаем ордер на продажу
+            // Create sell order
             const orderArgs = {
                 side: Side.SELL,
                 tokenID: position.asset,
@@ -244,20 +244,20 @@ async function main() {
     console.log(`💰 Minimum position value: $${MIN_POSITION_VALUE}\n`);
 
     try {
-        // Создаем провайдера и клиента
+        // Create provider and client
         const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
         const clobClient = await createClobClient(provider);
 
         console.log('✅ Connected to Polymarket\n');
 
-        // Получаем все позиции
+        // Get all positions
         console.log('📥 Fetching positions...');
         const positions: Position[] = await fetchData(
             `https://data-api.polymarket.com/positions?user=${PROXY_WALLET}`
         );
         console.log(`Found ${positions.length} position(s)\n`);
 
-        // Фильтруем большие позиции
+        // Filter large positions
         const largePositions = positions.filter((p) => p.currentValue > MIN_POSITION_VALUE);
 
         if (largePositions.length === 0) {
@@ -265,7 +265,7 @@ async function main() {
             process.exit(0);
         }
 
-        // Сортируем по размеру
+        // Sort by size
         largePositions.sort((a, b) => b.currentValue - a.currentValue);
 
         console.log(`🎯 Found ${largePositions.length} large position(s):\n`);
@@ -286,7 +286,7 @@ async function main() {
         let failureCount = 0;
         let totalSold = 0;
 
-        // Продаем каждую позицию
+        // Sell each position
         for (let i = 0; i < largePositions.length; i++) {
             const position = largePositions[i];
             const sellSize = Math.floor(position.size * SELL_PERCENTAGE);
@@ -319,7 +319,7 @@ async function main() {
                 failureCount++;
             }
 
-            // Пауза между продажами
+            // Pause between sales
             if (i < largePositions.length - 1) {
                 console.log('\n⏳ Waiting 2 seconds before next sale...\n');
                 await new Promise((resolve) => setTimeout(resolve, 2000));

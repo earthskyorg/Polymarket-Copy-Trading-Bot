@@ -1,0 +1,53 @@
+[package]
+name = "polymarket-copy-trading-bot"
+version = "1.0.0"
+edition = "2021"
+authors = ["Polymarket Trading Bot"]
+description = "Rust version of Polymarket Copy Trading Bot"
+license = "ISC"
+readme = "README.md"
+
+[dependencies]
+# Environment variables
+dotenv = "0.15"
+dotenvy = "0.15"
+
+# MongoDB
+mongodb = "3.5"
+
+# Ethereum/Web3
+ethers = "2.0"
+web3 = "0.19"
+
+# HTTP client
+reqwest = { version = "0.12", features = ["json"] }
+tokio = { version = "1.40", features = ["full"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Async runtime
+futures = "0.3"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Logging
+env_logger = "0.11"
+log = "0.4"
+
+# Date/time
+chrono = "0.4"
+
+# Utilities
+hex = "0.4"
+rust_decimal = "1.36"
+
+[dev-dependencies]
+tokio-test = "0.4"
+
+[[bin]]
+name = "polymarket-bot"
+path = "src/main.rs"

@@ -127,32 +127,29 @@ const postOrder = async (
             }, orderBook.bids[0]!);
 
             Logger.info(`Best bid: ${maxPriceBid.size} @ $${maxPriceBid.price}`);
-            let order_arges;
-            if (remaining <= parseFloat(maxPriceBid.size)) {
-                order_arges = {
-                    side: Side.SELL,
-                    tokenID: my_position.asset,
-                    amount: remaining,
-                    price: parseFloat(maxPriceBid.price),
-                };
-            } else {
-                order_arges = {
-                    side: Side.SELL,
-                    tokenID: my_position.asset,
-                    amount: parseFloat(maxPriceBid.size),
-                    price: parseFloat(maxPriceBid.price),
-                };
-            }
+            
+            // Determine order size based on available liquidity
+            const orderSize = remaining <= parseFloat(maxPriceBid.size) 
+                ? remaining 
+                : parseFloat(maxPriceBid.size);
+            
+            const orderArgs = {
+                side: Side.SELL,
+                tokenID: my_position.asset,
+                amount: orderSize,
+                price: parseFloat(maxPriceBid.price),
+            };
+            
             // Order args logged internally
-            const signedOrder = await clobClient.createMarketOrder(order_arges);
+            const signedOrder = await clobClient.createMarketOrder(orderArgs);
             const resp = await clobClient.postOrder(signedOrder, OrderType.FOK);
             if (resp.success === true) {
                 retry = 0;
                 Logger.orderResult(
                     true,
-                    `Sold ${order_arges.amount} tokens at $${order_arges.price}`
+                    `Sold ${orderArgs.amount} tokens at $${orderArgs.price}`
                 );
-                remaining -= order_arges.amount;
+                remaining -= orderArgs.amount;
             } else {
                 const errorMessage = extractOrderError(resp);
                 if (isInsufficientBalanceOrAllowanceError(errorMessage)) {
@@ -184,7 +181,7 @@ const postOrder = async (
             await UserActivity.updateOne({ _id: trade._id }, { bot: true });
         }
     } else if (condition === 'buy') {
-        //Buy strategy
+        // Buy strategy
         Logger.info('Executing BUY strategy...');
 
         Logger.info(`Your balance: $${my_balance.toFixed(2)}`);
@@ -254,7 +251,7 @@ const postOrder = async (
             const maxOrderSize = parseFloat(minPriceAsk.size) * parseFloat(minPriceAsk.price);
             const orderSize = Math.min(remaining, maxOrderSize);
 
-            const order_arges = {
+            const orderArgs = {
                 side: Side.BUY,
                 tokenID: trade.asset,
                 amount: orderSize,
@@ -265,17 +262,17 @@ const postOrder = async (
                 `Creating order: $${orderSize.toFixed(2)} @ $${minPriceAsk.price} (Balance: $${my_balance.toFixed(2)})`
             );
             // Order args logged internally
-            const signedOrder = await clobClient.createMarketOrder(order_arges);
+            const signedOrder = await clobClient.createMarketOrder(orderArgs);
             const resp = await clobClient.postOrder(signedOrder, OrderType.FOK);
             if (resp.success === true) {
                 retry = 0;
-                const tokensBought = order_arges.amount / order_arges.price;
+                const tokensBought = orderArgs.amount / orderArgs.price;
                 totalBoughtTokens += tokensBought;
                 Logger.orderResult(
                     true,
-                    `Bought $${order_arges.amount.toFixed(2)} at $${order_arges.price} (${tokensBought.toFixed(2)} tokens)`
+                    `Bought $${orderArgs.amount.toFixed(2)} at $${orderArgs.price} (${tokensBought.toFixed(2)} tokens)`
                 );
-                remaining -= order_arges.amount;
+                remaining -= orderArgs.amount;
             } else {
                 const errorMessage = extractOrderError(resp);
                 if (isInsufficientBalanceOrAllowanceError(errorMessage)) {
@@ -328,7 +325,7 @@ const postOrder = async (
             );
         }
     } else if (condition === 'sell') {
-        //Sell strategy
+        // Sell strategy
         Logger.info('Executing SELL strategy...');
         let remaining = 0;
         if (!my_position) {
@@ -457,23 +454,23 @@ const postOrder = async (
                 break;
             }
 
-            const order_arges = {
+            const orderArgs = {
                 side: Side.SELL,
                 tokenID: trade.asset,
                 amount: sellAmount,
                 price: parseFloat(maxPriceBid.price),
             };
             // Order args logged internally
-            const signedOrder = await clobClient.createMarketOrder(order_arges);
+            const signedOrder = await clobClient.createMarketOrder(orderArgs);
             const resp = await clobClient.postOrder(signedOrder, OrderType.FOK);
             if (resp.success === true) {
                 retry = 0;
-                totalSoldTokens += order_arges.amount;
+                totalSoldTokens += orderArgs.amount;
                 Logger.orderResult(
                     true,
-                    `Sold ${order_arges.amount} tokens at $${order_arges.price}`
+                    `Sold ${orderArgs.amount} tokens at $${orderArgs.price}`
                 );
-                remaining -= order_arges.amount;
+                remaining -= orderArgs.amount;
             } else {
                 const errorMessage = extractOrderError(resp);
                 if (isInsufficientBalanceOrAllowanceError(errorMessage)) {

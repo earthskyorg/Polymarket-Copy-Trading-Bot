@@ -75,7 +75,7 @@ async function aggregateResults() {
     console.log(
         colors.cyan('\n╔════════════════════════════════════════════════════════════════╗')
     );
-    console.log(colors.cyan('║          📊 АГРЕГАТОР РЕЗУЛЬТАТОВ ВСЕХ СТРАТЕГИЙ              ║'));
+    console.log(colors.cyan('║          📊 AGGREGATOR OF ALL STRATEGY RESULTS               ║'));
     console.log(
         colors.cyan('╚════════════════════════════════════════════════════════════════╝\n')
     );
@@ -101,7 +101,7 @@ async function aggregateResults() {
         if (!fs.existsSync(dirPath)) continue;
 
         const files = fs.readdirSync(dirPath).filter((f) => f.endsWith('.json'));
-        console.log(colors.gray(`📁 Сканирование ${dir}/: найдено ${files.length} файлов`));
+        console.log(colors.gray(`📁 Scanning ${dir}/: found ${files.length} files`));
 
         for (const file of files) {
             totalFiles++;
@@ -206,14 +206,14 @@ async function aggregateResults() {
         }
     }
 
-    console.log(colors.green(`✓ Обработано ${totalFiles} файлов\n`));
+    console.log(colors.green(`✓ Processed ${totalFiles} files\n`));
 
     // Сортировка стратегий
     const strategies = Array.from(allStrategies.values()).sort((a, b) => b.bestROI - a.bestROI);
 
-    // Вывод результатов
+    // Output results
     console.log(colors.cyan('═'.repeat(100)));
-    console.log(colors.cyan('  🏆 ТОП СТРАТЕГИЙ ПО ЛУЧШЕМУ ROI'));
+    console.log(colors.cyan('  🏆 TOP STRATEGIES BY BEST ROI'));
     console.log(colors.cyan('═'.repeat(100)) + '\n');
 
     console.log(
@@ -242,7 +242,7 @@ async function aggregateResults() {
     });
 
     console.log('\n' + colors.cyan('═'.repeat(100)));
-    console.log(colors.cyan('  🎯 ТОП ТРЕЙДЕРОВ (найдены в нескольких сканах)'));
+    console.log(colors.cyan('  🎯 TOP TRADERS (found in multiple scans)'));
     console.log(colors.cyan('═'.repeat(100)) + '\n');
 
     const topTraders = Array.from(allTraders.entries())
@@ -251,7 +251,7 @@ async function aggregateResults() {
 
     console.log(
         colors.bold(
-            '  #  | Address                                    | Best ROI  | Best Strategy | Найден раз'
+            '  #  | Address                                    | Best ROI  | Best Strategy | Found times'
         )
     );
     console.log(colors.gray('─'.repeat(100)));
@@ -269,9 +269,9 @@ async function aggregateResults() {
         );
     });
 
-    // Статистика
+    // Statistics
     console.log('\n' + colors.cyan('═'.repeat(100)));
-    console.log(colors.cyan('  📈 ОБЩАЯ СТАТИСТИКА'));
+    console.log(colors.cyan('  📈 OVERALL STATISTICS'));
     console.log(colors.cyan('═'.repeat(100)) + '\n');
 
     const totalTraders = Array.from(allStrategies.values()).reduce(
@@ -285,18 +285,18 @@ async function aggregateResults() {
     const uniqueTraders = allTraders.size;
     const profitableRate = totalTraders > 0 ? (totalProfitable / totalTraders) * 100 : 0;
 
-    console.log(`  Всего файлов:           ${colors.cyan(totalFiles.toString())}`);
-    console.log(`  Всего стратегий:        ${colors.cyan(strategies.length.toString())}`);
-    console.log(`  Всего трейдеров:        ${colors.cyan(totalTraders.toString())}`);
-    console.log(`  Уникальных трейдеров:   ${colors.cyan(uniqueTraders.toString())}`);
+    console.log(`  Total files:            ${colors.cyan(totalFiles.toString())}`);
+    console.log(`  Total strategies:       ${colors.cyan(strategies.length.toString())}`);
+    console.log(`  Total traders:          ${colors.cyan(totalTraders.toString())}`);
+    console.log(`  Unique traders:         ${colors.cyan(uniqueTraders.toString())}`);
     console.log(
-        `  Прибыльных трейдеров:   ${colors.green(totalProfitable.toString())} (${profitableRate.toFixed(1)}%)`
+        `  Profitable traders:     ${colors.green(totalProfitable.toString())} (${profitableRate.toFixed(1)}%)`
     );
 
-    // Лучшая стратегия
+    // Best strategy
     if (strategies.length > 0) {
         const best = strategies[0];
-        console.log('\n' + colors.green('🌟 ЛУЧШАЯ СТРАТЕГИЯ:'));
+        console.log('\n' + colors.green('🌟 BEST STRATEGY:'));
         console.log(`  ID: ${colors.yellow(best.strategyId)}`);
         console.log(`  ROI: ${colors.green('+' + best.bestROI.toFixed(2) + '%')}`);
         console.log(`  Win Rate: ${colors.yellow(best.bestWinRate.toFixed(1) + '%')}`);
@@ -327,11 +327,11 @@ async function aggregateResults() {
 
     fs.writeFileSync(outputPath, JSON.stringify(output, null, 2), 'utf8');
     console.log(
-        `\n${colors.green('✓ Агрегированные результаты сохранены:')} ${colors.cyan(outputPath)}\n`
+        `\n${colors.green('✓ Aggregated results saved:')} ${colors.cyan(outputPath)}\n`
     );
 }
 
 aggregateResults().catch((error) => {
-    console.error(colors.red('✗ Ошибка:'), error);
+    console.error(colors.red('✗ Error:'), error);
     process.exit(1);
 });

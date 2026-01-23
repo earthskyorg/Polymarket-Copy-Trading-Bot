@@ -73,7 +73,7 @@ const fetchBatch = async (
 };
 
 const fetchTradesForTrader = async (address: string): Promise<TradeApiResponse[]> => {
-    console.log(`\n🚀 Загрузка истории для ${address} (последние ${HISTORY_DAYS} дн.)`);
+    console.log(`\n🚀 Loading history for ${address} (last ${HISTORY_DAYS} days)`);
     const sinceTimestamp = Math.floor((Date.now() - HISTORY_DAYS * 24 * 60 * 60 * 1000) / 1000);
 
     let offset = 0;
@@ -104,7 +104,7 @@ const fetchTradesForTrader = async (address: string): Promise<TradeApiResponse[]
     }
 
     const sorted = allTrades.sort((a, b) => a.timestamp - b.timestamp);
-    console.log(`✓ Получено ${sorted.length} сделок`);
+    console.log(`✓ Retrieved ${sorted.length} trades`);
     return sorted;
 };
 
@@ -128,7 +128,7 @@ const saveTradesToCache = (address: string, trades: TradeApiResponse[]) => {
     };
 
     fs.writeFileSync(cacheFile, JSON.stringify(payload, null, 2), 'utf8');
-    console.log(`💾 Сохранено в ${cacheFile}`);
+    console.log(`💾 Saved to ${cacheFile}`);
 };
 
 const chunk = <T>(array: T[], size: number): T[][] => {
@@ -141,14 +141,14 @@ const chunk = <T>(array: T[], size: number): T[][] => {
 
 const main = async () => {
     if (USER_ADDRESSES.length === 0) {
-        console.log('USER_ADDRESSES пуст. Проверь .env');
+        console.log('USER_ADDRESSES is empty. Check .env');
         return;
     }
 
-    console.log('📥 Старт выгрузки истории сделок');
-    console.log(`Трейдеров: ${USER_ADDRESSES.length}`);
+    console.log('📥 Starting trade history export');
+    console.log(`Traders: ${USER_ADDRESSES.length}`);
     console.log(
-        `Период: ${HISTORY_DAYS} дней, максимум ${MAX_TRADES_PER_TRADER} сделок на трейдера`
+        `Period: ${HISTORY_DAYS} days, maximum ${MAX_TRADES_PER_TRADER} trades per trader`
     );
 
     const addressChunks = chunk(USER_ADDRESSES, MAX_PARALLEL);
@@ -160,13 +160,13 @@ const main = async () => {
                     const trades = await fetchTradesForTrader(address);
                     saveTradesToCache(address, trades);
                 } catch (error) {
-                    console.error(`✗ Ошибка при загрузке для ${address}:`, error);
+                    console.error(`✗ Error loading for ${address}:`, error);
                 }
             })
         );
     }
 
-    console.log('\n✅ Выгрузка завершена');
+    console.log('\n✅ Export completed');
 };
 
 main();
