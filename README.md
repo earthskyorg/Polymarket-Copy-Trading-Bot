@@ -1,4 +1,4 @@
-<h1 align="center"> Polymarket Copy Trading Bot - TypeScript Implementation </h1>
+<h1 align="center"> Polymarket Copy Trading Bot</h1>
 
 <div align="center">
 
