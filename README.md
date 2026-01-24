@@ -22,7 +22,7 @@
 - [How It Works](#-how-it-works)
 - [Features](#-features)
 - [Quick Start](#-quick-start)
-- [Configuration](#configuration)
+- [Configuration](#-configuration)
 - [Docker Deployment](#-docker-deployment)
 - [Documentation](#-documentation)
 - [Security](#-security)
@@ -160,7 +160,7 @@ npm start
 > **📖 Detailed Setup**: For comprehensive setup instructions, see the [Getting Started Guide](./TypeScript/docs/GETTING_STARTED.md)
 
 ---
-
+<a id="configuration"></a>
 ## ⚙️ Configuration
 
 ### Essential Environment Variables

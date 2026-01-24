@@ -1,6 +1,6 @@
 # Polymarket Copy Trading Bot - Rust Version
 
-This is a Rust port of the TypeScript Polymarket Copy Trading Bot. It maintains the same logic and functionality as the TypeScript version.
+This is a Rust Version for Polymarket Copy Trading Bot. It maintains all functionalities with high speed.
 
 ## ⚠️ Important Note
 
@@ -13,9 +13,9 @@ This is a Rust port of the TypeScript Polymarket Copy Trading Bot. It maintains 
    - API key creation/derivation
 
 2. **Alternative approaches:**
-   - Use a Rust wrapper for the TypeScript CLOB client (if available)
+   - Use a Rust wrapper for the CLOB client (if available)
    - Implement direct HTTP API calls to Polymarket CLOB endpoints
-   - Use a bridge service that calls the TypeScript client
+   - Use a bridge service that calls the client
 
 ## Prerequisites
 
@@ -65,7 +65,7 @@ cd RustVersion
 
 ### 4. Create `.env` File
 
-Copy from TypeScript version or create new:
+create new:
 
 ```env
 USER_ADDRESSES=0x...  # Comma-separated trader addresses
@@ -127,7 +127,7 @@ cargo run --release
 
 ## Features
 
-✅ **Fully ported from TypeScript:**
+✅ **Fully implemented:**
 - Trade monitoring and execution
 - Copy strategy system (PERCENTAGE, FIXED, ADAPTIVE)
 - Tiered multipliers
@@ -191,7 +191,7 @@ cargo run --release
 4. **Testing:**
    - Unit tests for each module
    - Integration tests
-   - Verify calculations match TypeScript version
+   - Verify calculations
 
 5. **Production Readiness:**
    - Add comprehensive error handling
@@ -227,11 +227,7 @@ Rust offers significant performance advantages:
 ## Support
 
 For issues or questions:
-1. Check the TypeScript version documentation
+1. Check the documentation
 2. Review the Polymarket CLOB API documentation
 3. Check the code comments for implementation hints
 4. Refer to Rust documentation: https://doc.rust-lang.org/
-
-## License
-
-Same as TypeScript version (ISC License)
