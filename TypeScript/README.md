@@ -22,7 +22,7 @@
 - [How It Works](#-how-it-works)
 - [Features](#-features)
 - [Quick Start](#-quick-start)
-- [Configuration](#-configuration)
+- [Configuration](#configuration)
 - [Architecture](#-architecture)
 - [Docker Deployment](#-docker-deployment)
 - [Documentation](#-documentation)
@@ -163,6 +163,7 @@ npm start
 
 ---
 
+<a id="configuration"></a>
 ## ⚙️ Configuration
 
 ### Essential Environment Variables
