@@ -298,10 +298,6 @@ docker-compose logs -f bot
 4. **Monitoring**: Regularly review trade history and positions
 5. **Updates**: Keep dependencies up to date
 
-### Reporting Security Issues
-
-If you discover a security vulnerability, please email security@example.com instead of using the issue tracker.
-
 ---
 
 ## 🤝 Contributing
