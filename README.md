@@ -16,6 +16,16 @@
 
 ---
 
+## 💬 Support
+
+For questions, issues, or feature requests:
+
+- **Telegram**: [@opensea712](https://t.me/opensea712)
+- **Twitter**: [@shinytechapes](https://x.com/shinytechapes)
+- **GitHub Issues**: [Open an issue](https://github.com/earthskyorg/polymarket-copy-trading-bot/issues)
+
+---
+
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
@@ -734,16 +744,6 @@ This project is built using the following technologies and services:
 ## 🔍 Related Searches
 
 If you're looking for a Polymarket copy trading bot, automated trading bot for Polymarket, Polymarket trading automation, copy trading strategy, or Polymarket bot tutorial, you've found the right solution. This is the best free open-source Polymarket trading bot available.
-
----
-
-## 💬 Support
-
-For questions, issues, or feature requests:
-
-- **Telegram**: [@opensea712](https://t.me/opensea712)
-- **Twitter**: [@shinytechapes](https://x.com/shinytechapes)
-- **GitHub Issues**: [Open an issue](https://github.com/earthskyorg/polymarket-copy-trading-bot/issues)
 
 ---
 
